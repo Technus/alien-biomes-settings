@@ -18,7 +18,11 @@ end
 
 util.deepcopy = deepcopy
 
+local function endswith(String, ending)
+    return ending == "" or string.sub(String,-#ending) == ending
+end
 
+util.endswith = endswith
 
 local function startsWith(String, Start)
     return string.sub(String, 1, string.len(Start)) == Start

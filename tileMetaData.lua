@@ -75,12 +75,34 @@ biomes.tile_alias=tile_alias
 local dynamic_ranges = {
     ["deepwater"] = { -1e72, 10000 },
     ["water"] = { -1e72, 1e58 },
-    ["mud"] = { -10000, 1 },
-    ["heat"] = { -10000, 1 },
-    ["tile"] = { -10000, 100 },
-    ["shallow"] = { -1e72, 10000 },
+    ["water-mud"] = { -10000, 1 },
+    ["water-shallow"] = { -1e72, 10000 },
 }
+local dynamic_range_default = { -10000, 100 }
 
-biomes.dynamic_ranges=dynamic_ranges
+local function get_dynamic_range(name)
+    for key, value in pairs(dynamic_ranges) do
+        if util.endswith(name,key) then
+            return value
+        end
+    end
+    return dynamic_range_default
+end
+
+biomes.get_dynamic_range=get_dynamic_range
+
+local function get_dynamic_range_scale(name)
+    local value = get_dynamic_range(name)
+    return {value[1]/dynamic_range_default[1],value[2]/dynamic_range_default[2]}
+end
+
+biomes.get_dynamic_range_scale=get_dynamic_range_scale
+
+local function get_dynamic_scale(name)
+    local value = get_dynamic_range(name)
+    return (value[1]/dynamic_range_default[1])*(value[2]/dynamic_range_default[2])
+end
+
+biomes.get_dynamic_scale=get_dynamic_scale
 
 return biomes
