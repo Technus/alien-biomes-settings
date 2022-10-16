@@ -1,6 +1,6 @@
-local doingAnalysis = false
+local doingAnalysis = __DebugAdapter and false
 
-if __DebugAdapter and doingAnalysis then
+if doingAnalysis then
   require("noiseAnalysis")()
 else
   require("noiseSettings")()

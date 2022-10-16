@@ -31,13 +31,9 @@ return function()
                     local b = noise.var("settings-b-" .. biome)
                     local c = noise.var("settings-c-" .. biome)
                     local d = tileMetaData.get_dynamic_scale(name)
-                    local lim = 10e10
-                    if d>lim then
-                        a=a*tne(lim)
-                        c=c*tne(lim)
-                    elseif d~=1 then
-                        a=a*tne(10e10)
-                        c=c*tne(10e10)
+                    if d~=1 then
+                        a=a*tne(d)
+                        c=c*tne(d)
                     end
 
                     local disabled = noise.var("settings-disabled-" .. biome)

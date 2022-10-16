@@ -32,6 +32,7 @@ return function()
     local expStep = 2
     local exp = (halfCount / 2 - 1) * expStep
     local current = 1
+    local alien = "Tile colors:"
     local stat = "Tile equations:"
 
     for name, tileData in pairs(data.raw.tile) do
@@ -42,6 +43,7 @@ return function()
             local limCloserToInf = math.pow(10, exp + (expStep / 2))
             local expr
 
+            alien = alien ..  "\n" .. name .. " " .. util.RGBtoHEX(tileData.map_color)
             tileData.map_color = util.generateColor(current)
 
             if current < halfCount then
@@ -90,5 +92,6 @@ return function()
             current = current + 1
         end
     end
+    log(alien)
     log(stat)
 end

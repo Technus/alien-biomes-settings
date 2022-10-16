@@ -47,9 +47,9 @@ local biome_settings = {
     ["volcanic-green"] = "volcanic-green-heat-",
     ["volcanic-orange"] = "volcanic-orange-heat-",
     ["volcanic-purple"] = "volcanic-purple-heat-",
-    ["water-normal"] = "water-normal",
-    ["water-deep"] = "water-deep",
-    ["water-shallow"] = "water-shallow",
+    --["water-normal"] = "water-normal",
+    --["water-deep"] = "water-deep",
+    --["water-shallow"] = "water-shallow",
     ["water-mud"] = "water-mud",
 }
 
@@ -100,7 +100,10 @@ biomes.get_dynamic_range_scale=get_dynamic_range_scale
 
 local function get_dynamic_scale(name)
     local value = get_dynamic_range(name)
-    return (value[1]/dynamic_range_default[1])*(value[2]/dynamic_range_default[2])
+    local scale = (value[1]/dynamic_range_default[1])*(value[2]/dynamic_range_default[2])
+    local _, exponent = math.frexp(scale)
+
+    return math.ldexp(0.5, exponent)
 end
 
 biomes.get_dynamic_scale=get_dynamic_scale
